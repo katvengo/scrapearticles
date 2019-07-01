@@ -1,5 +1,27 @@
+{{#each dbArticle}}
 <div class = "articles">
     <div class ="cardHeader">
-        {{{data}}}
+        {{{this.title}}}
+    </div>
+    <div class ="link">
+        {{{this.link}}}
+    </div>
+    <div class ="summary">
+        {{{this.summary}}}
     </div>
 </div>
+{{/each}}
+
+
+<script type="text/javascript">
+
+$(".scrapeButton").on("click", function(event){
+    event.preventDefault();
+
+    $.ajax("/all", {
+        type: "GET",
+        data: dbArticle,
+    }).then(function(data))
+})
+
+</script>

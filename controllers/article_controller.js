@@ -45,6 +45,11 @@ router.get("/scrape", function (req, res) {
   });
   return result;
 });
+// router.get("/", (req, res) => {
+//   res.render('index', {
+//     dbArticle
+//   })
+// });
 
 router.get("/articles", function (req, res) {
   
@@ -84,54 +89,20 @@ router.get("/articles", function (req, res) {
 
 });
 
-// router.get("/scraped", function (req, res) {
-//     var result = {}
-//   axios.get("https://www.apnews.com/apf-topnews").then(function (response) {
-//     var $ = cheerio.load(response.data);
-
-//     const articles = $("div.FeedCard");
-
-//     articles.each(function (i, element) {
-
-//       result.title = $(this)
-//         .find("div.CardHeadline")
-//         .children("a")
-//         .text();
-//       result.articleLink = $(this)
-//         .find("div.CardHeadline")
-//         .children("a")
-//         .attr("href");
-//       link = `https://www.apnews.com${articleLink}`;
-//       result.summary = $(this)
-//         .find("div.c0112")
-//         .children("p")
-//         .text();
-
-//       db.Article.create(result)
-//         .then(function (dbArticle) {
-//           console.log(dbArticle);
-//         })
-//         .catch(function (err) {
-//           console.log(err);
-//         });
-
-//         return res.json(dbArticle)
-//     });
-//    return dbArticle
-//   });
-// });
-
-// router.get("/all", function (req, res) {
-//   db.Article.find({})
-//     .then(function (dbArticle) {
-//       // If we were able to successfully find Articles, send them back to the client
-//       res.json(dbArticle);
-//     })
-//     .catch(function (err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-// })
+router.get("/all", function (req, res) {
+  db.Article.find({})
+    .then(function (dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.render('index', {
+        dbArticle
+      })
+    })
+    .catch(function (err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+  
+})
 
 
 module.exports = router
