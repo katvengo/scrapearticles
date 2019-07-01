@@ -4,8 +4,6 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var db = require("./models");
-
 var PORT = 8080;
 
 var app = express();
@@ -29,9 +27,10 @@ var routes = require("./controllers/article_controller.js");
 
 app.use(routes);
 
-mongoose.connect("mongodb://localhost/articlescraper", {
-  useNewUrlParser: true
-});
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
+
 
 app.get("/", function(req, res) {
   res.render("index");
