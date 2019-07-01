@@ -1,14 +1,25 @@
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
+
+
+
 {{#each dbArticle}}
-<div class = "articles">
-    <div class ="cardHeader">
+<div class="columns is-centered">
+    <div class="column is-8">
+<div class = "card">
+    <div class ="card-header">
+        <div class="card-header-title">
         {{{this.title}}}
+        </div> 
+       
     </div>
-    <div class ="link">
+    <div class ="card-content">
+       <div class="content">
+         {{{this.summary}}}
+       </div> 
         {{{this.link}}}
     </div>
-    <div class ="summary">
-        {{{this.summary}}}
-    </div>
+</div>
+   </div>
 </div>
 {{/each}}
 
