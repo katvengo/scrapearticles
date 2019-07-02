@@ -104,13 +104,12 @@ router.get("/articles", function (req, res) {
 
 
     });
-    res.send(dbArticle)
-    res.redirect("/")
+    res.redirect("/all")
   });
 
 });
 
-router.get("/all", function (req, res) {
+router.get("/api/all", function (req, res) {
   db.Article.find({})
     .then(function (dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
@@ -123,7 +122,7 @@ router.get("/all", function (req, res) {
 
 })
 
-router.get("/", function(req, res) {
+router.get("/all", function(req, res) {
   db.Article.find({})
   .then(function (data) {
     // If we were able to successfully find Articles, send them back to the client
@@ -134,6 +133,10 @@ router.get("/", function(req, res) {
     res.json(err);
   }); 
 
+});
+
+router.get("/", function(req, res) {
+ res.render("intro", )
 });
 
 
