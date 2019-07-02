@@ -124,8 +124,15 @@ router.get("/all", function (req, res) {
 })
 
 router.get("/", function(req, res) {
-  console.log("req" + req)
-  res.render("index", req)
+  db.Article.find({})
+  .then(function (data) {
+    // If we were able to successfully find Articles, send them back to the client
+    res.render("index", {dbArticle: data})
+  })
+  .catch(function (err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  }); 
 
 });
 
