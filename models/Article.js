@@ -23,6 +23,14 @@ var ArticleSchema = new Schema({
     required: true
   },
 
+  byline: {
+    type: String,
+
+  },
+  date: {
+    type: String,
+  },
+
   image: {
     type: String,
     

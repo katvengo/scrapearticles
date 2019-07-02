@@ -34,25 +34,34 @@ router.get("/scrape", function (req, res) {
         .find("div.c0112")
         .children("p")
         .text();
+        byline = $(element)
+        .find("div.signature")
+        .children("span")
+        .html()
+        date = $(element)
+        .find("div.signature")
+        .children()
+        .eq(1)
+        .html()
+        // image = $(element)
+        // .find("div.c0114")
+        // .attr("src")
 
       result.push({
         title: title,
         link: link,
-        summary: summary
+        summary: summary,
+        byline: byline,
+        date: date,
       });
     });
     return res.json(result);
   });
   return result;
 });
-// router.get("/", (req, res) => {
-//   res.render('index', {
-//     dbArticle
-//   })
-// });
+
 
 router.get("/articles", function (req, res) {
-  
   axios.get("https://www.apnews.com/apf-topnews").then(function (response) {
     var $ = cheerio.load(response.data);
 
@@ -68,13 +77,24 @@ router.get("/articles", function (req, res) {
         .find("div.CardHeadline")
         .children("a")
         .attr("href");
-        result.link = `https://www.apnews.com${articleLink}`;
-        result.summary = $(element)
+      result.link = `https://www.apnews.com${articleLink}`;
+      result.summary = $(element)
         .find("div.c0112")
         .children("p")
         .text();
-
-        db.Article.create(result)
+      result.byline = $(element)
+      .find("div.signature")
+      .children("span")
+      .html()
+       result.image = $(element)
+       .find("div.c0114")
+       .attr("src")
+        result.date = $(element)
+        .find("div.signature")
+        .children()
+        .eq(1)
+        .html()
+      db.Article.create(result)
         .then(function (dbArticle) {
           console.log(dbArticle);
         })
@@ -82,9 +102,10 @@ router.get("/articles", function (req, res) {
           console.log(err);
         });
 
-     
+
     });
-    res.send("Scrape Complete");
+    res.send(dbArticle)
+    res.redirect("/")
   });
 
 });
@@ -93,16 +114,24 @@ router.get("/all", function (req, res) {
   db.Article.find({})
     .then(function (dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
-      res.render('index', {
-        dbArticle
-      })
+      res.send(dbArticle)
     })
     .catch(function (err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
-  
+
 })
+
+router.get("/", function(req, res) {
+  console.log("req" + req)
+  res.render("index", req)
+
+});
 
 
 module.exports = router
+
+// render('index', {
+//   dbArticle: dbArticle
+// })
