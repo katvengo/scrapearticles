@@ -63,11 +63,14 @@ Favorite {{{this.favorite}}}</button></span>
                    
                 
     $(".favoriteButton").on("click", function (event) {
-            $.ajax({
+        console.log("button clicked")
+                      $.ajax({
                         url: "/api/all/:id",
                         method: "PUT",
+
                     }).then(function (result) {
                         console.log("my result" + result)
                     })   
+
     })
 </script>

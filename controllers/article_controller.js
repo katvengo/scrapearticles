@@ -142,15 +142,12 @@ router.get("/", function(req, res) {
 
 router.put("/api/all/:id", function(req, res){
   var id = req.params.id
-  db.Article.findByIdAndUpdate(id, function(err, article){
-    article.favorite = !article.favorite;
-    article.save(function(err){
-      if(err){
-        console.log(err)
-      }
-    })
+  db.Article.update({_id: id}, {$set: {favorite: true}})
+  .then(function(data){
+    res.render("index", {dbArticle: data})
   })
-})
+  })
+
 
 
 module.exports = router
@@ -158,3 +155,12 @@ module.exports = router
 // render('index', {
 //   dbArticle: dbArticle
 // })
+
+// function(err, article){
+//   article.favorite = true
+//   article.save(function(err){
+//     if(err){
+//       console.log(err)
+//     }
+//   })
+//   console.log(article.favorite)
