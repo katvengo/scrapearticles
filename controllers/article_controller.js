@@ -137,14 +137,22 @@ router.get("/all", function(req, res) {
 });
 
 router.get("/", function(req, res) {
- res.render("intro", )
+ res.render("intro")
 });
 
-router.put("/api/add", function(req, res){
+// router.get("/api/all/faves", function(req, res){
+//   db.Article.find({})
+//   .then(function(data){
+//   res.send(data)
+//   })
+//   })
 
-  db.Article.findByIdAndUpdate(req.params.id, { $set: {favorite : true}})
+router.put("/all", function(req, res){
+  var id = req.body.id
+  console.log(req.body.id)
+  db.Article.updateOne({_id: id}, {$set: {favorite: true} })
   .then(function(data){
-  res.send('Done' )
+  res.json(data)
   })
   })
 

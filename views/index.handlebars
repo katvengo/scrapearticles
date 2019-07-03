@@ -1,15 +1,15 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
 
-{{#each dbArticle}}
+{{#each dbArticle}} {{#unless this.favorite}}
 <div class="columns is-centered is-mobile">
     <div class="column is-offset-by-2 is-half">
         <div class="card">
             <div class="card-header">
                 <div class="card-header-title">
                     <span style="margin-right: 15px;"><a href="{{{this.link}}}">{{{this.title}}}</a></span>
-                    <span><button class="button is-medium is-danger favoriteButton"><i class="far fa-star"></i>
+                    <span><button id={{this.id}} data-favorite={{this.favorite}} class="button is-medium is-danger favoriteButton"><i class="far fa-star"></i>
 
-Favorite {{{this.favorite}}}</button></span>
+Favorite </button></span>
                 </div>
             </div>
             <div class="card-content">
@@ -25,7 +25,7 @@ Favorite {{{this.favorite}}}</button></span>
         {{{this.image}}}
     </div>
 </div>
-{{/each}}
+{{/unless}}{{/each}} 
 
 
 
@@ -35,22 +35,8 @@ Favorite {{{this.favorite}}}</button></span>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-        var articlesNotScraped = true
-
-        console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))
-    })
-
-    $(".scrapeButton").on("click", function (event) {
-        console.log("button pressed")
-        event.preventDefault()
-
-        articlesNotScraped = false
-        console.log("articlesNotscraped should be false" + Boolean(articlesNotScraped))
-
-
-                    $.ajax({
+         $.ajax({
                         url: "/api/all",
                         method: "GET",
                     }).then(function (result) {
@@ -58,19 +44,36 @@ Favorite {{{this.favorite}}}</button></span>
             
                     })
                     
-    })
 
+        var articlesNotScraped = true
+        console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))
+    })
+    $(".scrapeButton").on("click", function (event) {
+        console.log("button pressed")
+        event.preventDefault()
+        articlesNotScraped = false
+        console.log("articlesNotscraped should be false" + Boolean(articlesNotScraped))
+                   
+    })
   
                    
                 
     $(".favoriteButton").on("click", function (event) {
         console.log("button clicked")
-                      $.ajax({
-                        url: "/api/add",
+        var favoriteArticle ={
+            id: event.target.id,
+            favorite: true,
+        }           
+                       $.ajax({
+                        url: "/all",
                         method: "PUT",
+                        data: favoriteArticle,
                     }).then(function (result) {
                         console.log(result)
-                    })   
-
+                        
+            
+                    })
     })
 </script>
+ 
+                    
