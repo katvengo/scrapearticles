@@ -140,11 +140,11 @@ router.get("/", function(req, res) {
  res.render("intro", )
 });
 
-router.put("/api/all/:id", function(req, res){
-  var id = req.params.id
-  db.Article.update({_id: id}, {$set: {favorite: true}})
+router.put("/api/add", function(req, res){
+
+  db.Article.findByIdAndUpdate(req.params.id, { $set: {favorite : true}})
   .then(function(data){
-    res.render("index", {dbArticle: data})
+  res.send('Done' )
   })
   })
 

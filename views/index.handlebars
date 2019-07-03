@@ -55,6 +55,7 @@ Favorite {{{this.favorite}}}</button></span>
                         method: "GET",
                     }).then(function (result) {
                         console.log(result)
+            
                     })
                     
     })
@@ -65,11 +66,10 @@ Favorite {{{this.favorite}}}</button></span>
     $(".favoriteButton").on("click", function (event) {
         console.log("button clicked")
                       $.ajax({
-                        url: "/api/all/:id",
+                        url: "/api/add",
                         method: "PUT",
-
                     }).then(function (result) {
-                        console.log("my result" + result)
+                        console.log(result)
                     })   
 
     })
