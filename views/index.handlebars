@@ -6,7 +6,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-header-title">
-                    <a href="{{{this.link}}}">{{{this.title}}}</a>
+                    <span style="margin-right: 15px;"><a href="{{{this.link}}}">{{{this.title}}}</a></span>
+                    <span><button class="button is-medium is-danger favoriteButton"><i class="far fa-star"></i>
+
+Favorite {{{this.favorite}}}</button></span>
                 </div>
             </div>
             <div class="card-content">
@@ -54,5 +57,17 @@
                         console.log(result)
                     })
                     
+    })
+
+  
+                   
+                
+    $(".favoriteButton").on("click", function (event) {
+            $.ajax({
+                        url: "/api/all/:id",
+                        method: "PUT",
+                    }).then(function (result) {
+                        console.log("my result" + result)
+                    })   
     })
 </script>

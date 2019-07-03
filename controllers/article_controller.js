@@ -43,9 +43,9 @@ router.get("/scrape", function (req, res) {
         .children()
         .eq(1)
         .html()
-        // image = $(element)
-        // .find("div.c0114")
-        // .attr("src")
+        image = $(element)
+        .find("div.c0114")
+        .attr("src")
 
       result.push({
         title: title,
@@ -88,6 +88,7 @@ router.get("/articles", function (req, res) {
       .html()
        result.image = $(element)
        .find("div.c0114")
+       .eq(1)
        .attr("src")
         result.date = $(element)
         .find("div.signature")
@@ -138,6 +139,18 @@ router.get("/all", function(req, res) {
 router.get("/", function(req, res) {
  res.render("intro", )
 });
+
+router.put("/api/all/:id", function(req, res){
+  var id = req.params.id
+  db.Article.findByIdAndUpdate(id, function(err, article){
+    article.favorite = !article.favorite;
+    article.save(function(err){
+      if(err){
+        console.log(err)
+      }
+    })
+  })
+})
 
 
 module.exports = router
