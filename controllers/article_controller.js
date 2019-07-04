@@ -163,17 +163,15 @@ router.get("/saved", function(req, res){
   })
 })
 
+
+router.delete("/delete", function(req, res){
+  var id = req.body.id
+  console.log(req.body.id)
+  db.Article.deleteOne({_id: id}, function(err){
+    console.log(err)
+  })
+})
+
+
 module.exports = router
 
-// render('index', {
-//   dbArticle: dbArticle
-// })
-
-// function(err, article){
-//   article.favorite = true
-//   article.save(function(err){
-//     if(err){
-//       console.log(err)
-//     }
-//   })
-//   console.log(article.favorite)

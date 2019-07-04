@@ -5,77 +5,78 @@
 <div class="container">
     <div class="columns is-centered">
         <div class="column is-8">
-    <h1 class="mainHead">Favorited Articles</h1> 
+            <h1 class="mainHead">Favorited Articles</h1>
         </div>
     </div>
-{{#each dbArticle}} 
-<div class="columns is-centered">
-    <div class="column is-half">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-header-title">
-                    <span style="margin-right: 20px;"><a href="{{{this.link}}}">{{{this.title}}}</a></span>
-                    <span><button id={{this.id}} class="button is-medium is-danger is-focused is-medium deleteButton"><i class="fas fa-times"></i>  Delete
-                         </button></span>
-                    <span><button id={{this.id}} class="button is-medium is-info is-focused is-medium noteButton"><i class="fas fa-edit"></i>
-                        Note </button></span>
+    {{#each dbArticle}}
+    <div class="columns is-centered">
+        <div class="column is-half">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-title">
+                        <span style="margin-right: 20px;"><a href="{{{this.link}}}">{{{this.title}}}</a></span>
+                        <span><button id={{this.id}}
+                                class="button is-medium is-danger is-focused is-medium deleteButton"><i
+                                    class="fas fa-times"></i> Delete
+                            </button></span>
+                        <span><button id={{this.id}} class="button is-medium is-info is-focused is-medium noteButton"><i
+                                    class="fas fa-edit"></i>
+                                Note </button></span>
+                    </div>
                 </div>
-            </div>
-            <div class="card-content">
-                {{{this.date}}} {{{this.byline}}}
-                <div class="content">
-                    {{{this.summary}}}
-                </div>
+                <div class="card-content">
+                    {{{this.date}}} {{{this.byline}}}
+                    <div class="content">
+                        {{{this.summary}}}
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-{{/each}} 
+    {{/each}}
 
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-         $.ajax({
-                        url: "/api/all",
-                        method: "GET",
-                    }).then(function (result) {
-                        console.log(result)
-            
-                    })
-                    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "/api/all",
+                method: "GET",
+            }).then(function (result) {
+                console.log(result)
 
-        var articlesNotScraped = true
-        console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))
-    })
-    $(".scrapeButton").on("click", function (event) {
-        console.log("button pressed")
-        event.preventDefault()
-        articlesNotScraped = false
-        console.log("articlesNotscraped should be false" + Boolean(articlesNotScraped))
-                   
-    })
-  
-                   
-                
-    $(".favoriteButton").on("click", function (event) {
-        console.log("button clicked")
-        var favoriteArticle ={
-            id: event.target.id,
-            favorite: true,
-        }           
-                       $.ajax({
-                        url: "/all",
-                        method: "PUT",
-                        data: favoriteArticle,
-                    }).then(function (result) {
-                        console.log(result)
-                        
-            
-                    })
-    })
-</script>
- 
+            })
+
+
+            var articlesNotScraped = true
+            console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))
+        })
+        $(".scrapeButton").on("click", function (event) {
+            console.log("button pressed")
+            event.preventDefault()
+            articlesNotScraped = false
+            console.log("articlesNotscraped should be false" + Boolean(articlesNotScraped))
+
+        })
+
+
+
+        $(".deleteButton").on("click", function (event) {
+            console.log("delete")
+            var favoriteArticle = {
+                id: event.target.id,
+            }
+            $.ajax({
+                url: "/delete",
+                method: "DELETE",
+                data: favoriteArticle,
+            }).then(function (res) {
+                console.log(res)
+                window.location.reload(false);
+            })
+
+        })
+    </script>
