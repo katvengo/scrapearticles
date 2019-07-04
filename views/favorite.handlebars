@@ -1,23 +1,24 @@
-<link rel="stylesheet" href="../public/assets/style.css">
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
-<script defer src='https://use.fontawesome.com/releases/v5.3.1/js/all.js'></script>
+<link rel="stylesheet" href="../public/assets/style.css">
+
 
 <div class="container">
     <div class="columns is-centered">
         <div class="column is-8">
-    <h1 class="mainHead">Scrape em' Articles!</h1> 
+    <h1 class="mainHead">Favorited Articles</h1> 
         </div>
     </div>
-{{#each dbArticle}} {{#unless this.favorite}}
-<div class="columns is-centered is-mobile">
-    <div class="column is-offset-by-2 is-half">
+{{#each dbArticle}} 
+<div class="columns is-centered">
+    <div class="column is-half">
         <div class="card">
             <div class="card-header">
                 <div class="card-header-title">
-                    <span style="margin-right: 15px;"><a href="{{{this.link}}}">{{{this.title}}}</a></span>
-                    <span><button id={{this.id}} data-favorite={{this.favorite}} class="button is-medium is-danger favoriteButton"><i class="far fa-star"></i>
-
-Favorite </button></span>
+                    <span style="margin-right: 20px;"><a href="{{{this.link}}}">{{{this.title}}}</a></span>
+                    <span><button id={{this.id}} class="button is-medium is-danger is-focused is-medium deleteButton"><i class="fas fa-times"></i>  Delete
+                         </button></span>
+                    <span><button id={{this.id}} class="button is-medium is-info is-focused is-medium noteButton"><i class="fas fa-edit"></i>
+                        Note </button></span>
                 </div>
             </div>
             <div class="card-content">
@@ -30,10 +31,7 @@ Favorite </button></span>
         </div>
     </div>
 </div>
-{{/unless}}{{/each}} 
-
-
-
+{{/each}} 
 
 
 
@@ -81,4 +79,3 @@ Favorite </button></span>
     })
 </script>
  
-                    

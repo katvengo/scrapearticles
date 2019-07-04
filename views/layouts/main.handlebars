@@ -33,13 +33,15 @@
         width: 100%;
         background-color: rgb(236, 207, 143);
     }
-   
+
+    .navLinks{
+      font-family:Georgia, 'Times New Roman', Times, serif;
+      margin-left: 15px;
+    }
+
 </style>
 <nav class="navbar" role="navigation" aria-label="main navigation" >
   <div class="navbar-brand">
-    <a class="navbar-item" href="/index.html">
-    Mongo Scraper
-    </a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" href="/index.html">
       <span aria-hidden="true"></span>
@@ -50,15 +52,14 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="/index.html">
-        Text
+      <a class="navbar-item button navLinks is-large is-light" href="/">
+       Home
       </a>
-
-      <a class="navbar-item button is-small is-dark" href="/index.html">
-       Saved Articles
+      <a class="navbar-item button navLinks is-large is-light" href="/saved">
+       Favorited Articles
       </a>
-      <a class="navbar-item scrapeButton button is-small is-dark" href="/articles">
-       Scrape!
+      <a class="navbar-item scrapeButton navLinks button is-large is-light" href="/articles">
+       Scrape Articles
       </a>
     </div>
 
@@ -74,12 +75,6 @@
 <div class="bgk">  
 </div>
 
-<div class="container">
-    <div class="columns is-centered">
-        <div class="column is-8">
-    <h1 class="mainHead">Scrape em' Articles!</h1> 
-        </div>
-    </div>
 
 
 </div>

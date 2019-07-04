@@ -156,7 +156,12 @@ router.put("/all", function(req, res){
   })
   })
 
-
+router.get("/saved", function(req, res){
+  db.Article.find({favorite: true})
+  .then(function(data){
+    res.render("favorite", {dbArticle: data})
+  })
+})
 
 module.exports = router
 

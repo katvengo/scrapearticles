@@ -1,0 +1,19 @@
+
+   .mainHead {
+    text-align: center;
+    font-size: 50px;
+    text-shadow: 1px 1px #000000;
+    font-family: Serif;
+}
+
+.deleteButton{
+    padding-left: 10px;
+    width: 20px !important;
+    color: rgb(187, 16, 16) !important;
+}
+
+.noteButton{
+    padding-left: 10px;
+    width: 15px !important;
+    color: rgb(70, 156, 206) !important;
+}
