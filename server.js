@@ -27,7 +27,7 @@ var routes = require("./controllers/article_controller.js");
 
 app.use(routes);
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"; 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://katvengo/mongoHeadlines"; 
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true});
 
