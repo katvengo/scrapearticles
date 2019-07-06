@@ -154,13 +154,20 @@ router.put("/all", function(req, res){
   .then(function(data){
   res.json(data)
   })
+  .catch(function(err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  });
   })
 
 router.get("/saved", function(req, res){
   db.Article.find({favorite: true})
   .then(function(data){
     res.render("favorite", {dbArticle: data})
-  })
+  }).catch(function(err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  });
 })
 
 
