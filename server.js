@@ -22,12 +22,13 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+require('dotenv').config()
 
 var routes = require("./controllers/article_controller.js");
 
 app.use(routes);
 
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://katvengo:Horses100@ds345587.mlab.com:45587/heroku_pzjpkkjh'; 
+var MONGODB_URI = process.env.MONGODB_URI || `mongodb://katvengo:${process.env.DB_PASS}@ds345587.mlab.com:45587/heroku_pzjpkkjh`; 
 
 mongoose.connect(MONGODB_URI);
 
