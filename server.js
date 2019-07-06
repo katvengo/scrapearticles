@@ -29,6 +29,7 @@ var routes = require("./controllers/article_controller.js");
 app.use(routes);
 
 var MONGODB_URI = process.env.MONGODB_URI || `mongodb://katvengo:${process.env.DB_PASS}@ds345587.mlab.com:45587/heroku_pzjpkkjh`; 
+console.log(MONGODB_URI)
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 

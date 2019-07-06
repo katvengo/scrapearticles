@@ -60,41 +60,46 @@
                     <p></p>
                     <textarea type="text" id="noteBody" name="body" placeholder="Write Note Here"></textarea>
                     <p></p>
-                    <button class="button is-medium is-success saveNoteButton" id={{this.id}}>Save Note</div>
-                    <button class="button closeButton is-danger is-medium">Close</button>
-
-                </form>
-
-                {{#each data.note}}
-                <!-- This needs to contain all notes for this article ... -->
-                {{this.data.note.title}}
-                {{this.data.note.body}}
-                <!--This will be to delete note-->
-                <button class="button is-danger is-small"><i class="fas fa-times"></i></button>
-                {{/each}}
-                <!--Create Note here-->
-
-            </section>
+                    <button class="button is-medium is-success saveNoteButton" id={{this.id}}>Save Note</button>
         </div>
+        <button class="button closeButton is-danger is-medium">Close</button>
+
+        </form>
+
+        {{#each data.note}}
+        <!-- This needs to contain all notes for this article ... -->
+        {{this.data.note.title}}
+        {{this.data.note.body}}
+        <!--This will be to delete note-->
+        <button class="button is-danger is-small"><i class="fas fa-times"></i></button>
+        {{/each}}
+        <!--Create Note here-->
+
+        </section>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".noteModal").hide()
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".noteModal").hide()
 
-            $.ajax({
-                url: "/api/all",
-                method: "GET",
-            }).then(function (result) {
-                console.log(result)
+        $.ajax({
+            url: "/api/all",
+            method: "GET",
+        }).then(function (result) {
+            console.log(result)
 
-            })
+        })
 
-            {{!-- var articlesNotScraped = true
-            console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped)) --}}
-       
+        {
+            {
+                !-- var articlesNotScraped = true
+                console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))--
+            }
+        }
+
 
         $(".deleteButton").on("click", function (event) {
             console.log("delete")
@@ -106,23 +111,23 @@
                 method: "DELETE",
                 data: favoriteArticle,
             }).then(function (result) {
-                    console.log(result)
-                    window.location.reload(false); 
+                console.log(result)
+                window.location.reload(false);
             })
 
         })
 
         $(".noteButton").on("click", function (event) {
             console.log("Note button is pressed")
-              $(".noteModal").show()
-             var favoriteArticle = {
+            $(".noteModal").show()
+            var favoriteArticle = {
                 id: event.target.id,
             }
-                var thisId = event.target.id
-                $.ajax({
+            var thisId = event.target.id
+            $.ajax({
                 url: "/article/" + thisId,
                 method: "GET",
-                })
+            })
                 .then(function (data) {
                     console.log(data)
                 })
@@ -138,25 +143,27 @@
             const identify = {
                 id: event.target.id
             }
-         
+
+
+            var thisId = event.target.id
             console.log(thisId)
             console.log("new note" + newNote.title + newNote.body)
             $.ajax({
-                url: "/article/" + thisId,    
+                url: "/article/" + thisId,
                 method: "POST",
-                data: {newNote, identify}
+                data: { newNote, identify }
             })
                 .then(function (data) {
-                console.log(data)
-                }) 
+                    console.log(data)
+                })
         })
-         
-        
- })
- 
-    </script>
 
-       {{!-- var favoriteArticle = {
+
+    })
+
+</script>
+
+{{!-- var favoriteArticle = {
                 id: event.target.id,
             }
                var thisId = event.target._id
