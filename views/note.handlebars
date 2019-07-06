@@ -1,0 +1,51 @@
+
+{{!-- 
+<script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "/api/all",
+                method: "GET",
+            }).then(function (result) {
+                console.log(result)
+
+            })
+
+
+            var articlesNotScraped = true
+            console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))
+        })
+
+        $(".deleteButton").on("click", function (event) {
+            console.log("delete")
+            var favoriteArticle = {
+                id: event.target.id,
+            }
+            $.ajax({
+                url: "/delete",
+                method: "DELETE",
+                data: favoriteArticle,
+            }).then(function (res) {
+                console.log(res)
+                window.location.reload(false);
+            })
+
+        })
+
+        $(".noteButton").on("click", function (event) {
+            console.log("Note button is pressed")
+            var articleId = {
+                id: event.target.id
+            }
+            var thisId = event.target.id
+            console.log(thisId)
+            $.ajax({
+                method: "GET",
+                url: "/articles/" + thisId,
+            })
+                .then(function (data) {
+                    console.log(data);
+                    
+                })
+        }) --}}
+
+    </script>
