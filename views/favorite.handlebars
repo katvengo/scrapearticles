@@ -20,8 +20,7 @@
                                     class="fas fa-times"></i> Delete
                             </button></span>
                         <span>
-                            <button id={{this.id}}
-                                class="button is-medium is-info is-focused is-medium noteButton"><i
+                            <button id={{this.id}} class="button is-medium is-info is-focused is-medium noteButton"><i
                                     class="fas fa-edit"></i>
                                 Article Notes </button></span>
                     </div>
@@ -61,7 +60,7 @@
                     <p></p>
                     <textarea type="text" id="noteBody" name="body" placeholder="Write Note Here"></textarea>
                     <p></p>
-                    <button id={{this.id}} class="button is-info is-medium saveNoteButton">Save Note</div>
+                    <button class="button is-medium is-success saveNoteButton" id={{this.id}}>Save Note</div>
                     <button class="button closeButton is-danger is-medium">Close</button>
 
                 </form>
@@ -106,9 +105,9 @@
                 url: "/delete",
                 method: "DELETE",
                 data: favoriteArticle,
-            }).then(function (res) {
-                console.log(res)
-                window.location.reload(false);
+            }).then(function (result) {
+                    console.log(result)
+                    window.location.reload(false); 
             })
 
         })
@@ -133,19 +132,28 @@
         $(".saveNoteButton").on("click", function (event) {
             var newNote = {
                 title: $("#noteTitle").val(),
-                body: $("#noteBody").val()
+                body: $("#noteBody").val(),
             }
-            console.log("new note" + newNote)
-            {{!-- $.ajax({
+
+            const identify = {
+                id: event.target.id
+            }
+         
+            console.log(thisId)
+            console.log("new note" + newNote.title + newNote.body)
+            $.ajax({
+                url: "/article/" + thisId,    
                 method: "POST",
-                url: "/articles/" + thisId,
-                data: newNote, 
+                data: {newNote, identify}
             })
                 .then(function (data) {
                 console.log(data)
-                }) --}}
+                }) 
         })
+         
+        
  })
+ 
     </script>
 
        {{!-- var favoriteArticle = {
