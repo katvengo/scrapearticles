@@ -1,5 +1,5 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
-<link rel="stylesheet" href="../public/assets/style.css">
+<link rel="stylesheet" href="/css">
 
 
 <div class="container">
@@ -35,24 +35,28 @@
             </div>
         </div>
     </div>
-    {{/each}}
-
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
-    <link rel="stylesheet" href="../public/assets/style.css">
-
+  
 
     <div class="modal noteModal">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Note for Article {{this.id}}</p>
+                <p class="modal-card-title">Note for Article   {{this.note}}</p>
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
                 <div>
-                    <span>Article</span><span><button class="button is-danger is-small"><i
-                                class="fas fa-times"></i>X</button>
-                    </span>
+                 {{#iter}}
+                  {{i}} {{note}}
+               {{/iter}}
+                    <span></span>
+                    <span></span>
+                
+                    <!-- This needs to contain all notes for this article ... -->
+    
+                    <!--This will be to delete note-->
+                    <button class="button is-danger is-small"><i class="fas fa-times">X</i></button>
+                  {{/each}}
                 </div>
                 <form method="post">
                     <h2>Enter a Note!</h2>
@@ -60,21 +64,13 @@
                     <p></p>
                     <textarea type="text" id="noteBody" name="body" placeholder="Write Note Here"></textarea>
                     <p></p>
-                    <button class="button is-medium is-success saveNoteButton" id={{this.id}}>Save Note</button>
         </div>
+        <button id="save-note-button" class="button is-medium is-success saveNoteButton" data-id={{this.id}}>Save
+            Note</button>
+
         <button class="button closeButton is-danger is-medium">Close</button>
 
         </form>
-
-        {{#each data.note}}
-        <!-- This needs to contain all notes for this article ... -->
-        {{this.data.note.title}}
-        {{this.data.note.body}}
-        <!--This will be to delete note-->
-        <button class="button is-danger is-small"><i class="fas fa-times"></i></button>
-        {{/each}}
-        <!--Create Note here-->
-
         </section>
     </div>
 </div>
@@ -83,6 +79,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+   
+        var currentArticle = null;
+
+        var noteArray = []; 
         $(".noteModal").hide()
 
         $.ajax({
@@ -95,8 +95,8 @@
 
         {
             {
-                !-- var articlesNotScraped = true
-                console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))--
+                var articlesNotScraped = true
+                console.log("articlesNotscraped should be true" + Boolean(articlesNotScraped))
             }
         }
 
@@ -112,7 +112,7 @@
                 data: favoriteArticle,
             }).then(function (result) {
                 console.log(result)
-                window.location.reload(false);
+                window.location.reload(true);
             })
 
         })
@@ -124,14 +124,20 @@
                 id: event.target.id,
             }
             var thisId = event.target.id
+            currentArticle = thisId
+
             $.ajax({
                 url: "/article/" + thisId,
                 method: "GET",
             })
                 .then(function (data) {
                     console.log(data)
+                    console.log("data Note" + data.note[0])
+    
+                
                 })
         })
+      
 
 
         $(".saveNoteButton").on("click", function (event) {
@@ -144,18 +150,28 @@
                 id: event.target.id
             }
 
-
-            var thisId = event.target.id
+            var thisId = currentArticle
             console.log(thisId)
             console.log("new note" + newNote.title + newNote.body)
             $.ajax({
                 url: "/article/" + thisId,
                 method: "POST",
-                data: { newNote, identify }
+                data: {
+                    title: $("#noteTitle").val(),
+                    body: $("#noteBody").val(),
+                }
             })
                 .then(function (data) {
                     console.log(data)
-                })
+                    window.location.reload(false);
+                }).catch(function (err) {
+                    // If an error occurred, send it to the client
+                    res.json(err);
+                });
+        })
+
+        $(".closeButton").on("click", function(event){
+             $(".noteModal").hide()
         })
 
 

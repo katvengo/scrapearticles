@@ -28,7 +28,9 @@ var routes = require("./controllers/article_controller.js");
 
 app.use(routes);
 
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://heroku_pzjpkkjh:gtpp4dlb8lc6fa9brlijd2e42h@ds345587.mlab.com:45587/heroku_pzjpkkjh'
+var MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost/scrapeArtcles`; 
+
+//  'mongodb://heroku_pzjpkkjh:gtpp4dlb8lc6fa9brlijd2e42h@ds345587.mlab.com:45587/heroku_pzjpkkjh'
 // `mongodb://katvengo:${process.env.DB_PASS}@ds345587.mlab.com:45587/heroku_pzjpkkjh`; 
 console.log(MONGODB_URI)
 
@@ -41,3 +43,4 @@ mongoose.set('debug', true)
 app.listen(PORT, function() {
   console.log(`App running on  ${PORT}`);
 });
+

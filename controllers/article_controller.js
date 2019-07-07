@@ -4,6 +4,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var app = express()
 var bodyParser = require("body-parser");
+var path = require("path")
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -12,6 +13,14 @@ app.use(bodyParser.json());
 
 var db = require("../models");
 
+router.get('/css', function(req, res) {
+  res.sendFile(path.join(__dirname, '../public/assets/style.css'));
+ });
+
+router.get('/js', function(req, res) {
+  res.sendFile(path.join(__dirname, '../public/assets/js/main.js'));
+ });
+  
 //Routes
 router.get("/scrape", function (req, res) {
   var result = [];
@@ -180,43 +189,44 @@ router.delete("/delete", function(req, res){
 })
 
 router.get("/article/:id", function(req, res) {
-var id = req.params.id
-  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.findOne({ _id: id})
-    // ..and populate all of the notes associated with it
-    .populate("note")
-    .then(function(dbArticle) {
-      // If we were able to successfully find an Article with the given id, send it back to the client
-      res.render("/saved", {dbArticle: data})
+   var id = req.params.id
+    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+    db.Article.findOne({ _id: id}).populate("note")
+      // ..and populate all of the notes associated with it
+      .then(function(dbArticle) {
+        // If we were able to successfully find an Article with the given id, send it back to the client
+      //  res.render("favorite", {dbArticle: dbArticle})
+       res.send(dbArticle)
+        // res.render("favorite", {dbArticle: data})
+  
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
 
+
+router.post("/article/:id", function(req, res) {
+  console.log("req.body" + req)
+  //Create a new note and pass the req.body to the entry
+  db.Note.create(req.body)
+    .then(function(dbNote) {
+      // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: {note: dbNote._id}}, { new: true });
+    })
+    .then(function(dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      res.render("favorite", {dbArticle: dbArticle})
+      // res.json(dbArticle);
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
 });
-
-// router.post("/article/:id", function(req, res) {
-// var id = req.body.id
-// console.log(id)
-// console.log(req.body)
-//   //Create a new note and pass the req.body to the entry
-//   db.Note.create(req.body)
-//     .then(function(dbNote) {
-//       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
-//       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-//       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-//       return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-//     })
-//     .then(function(dbNote) {
-//       // If we were able to successfully update an Article, send it back to the client
-//       res.send(dbNote);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-// });
 
 
 
