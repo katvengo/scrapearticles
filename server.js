@@ -39,7 +39,6 @@ mongoose.connect(
   process.env.MONGODB_URI || 
    "mongodb://katvengo:Horses100@ds345587.mlab.com:45587/heroku_pzjpkkjh",
  { 
-   useMongoClient: true
   });
 
 mongoose.set('useFindAndModify', false);
