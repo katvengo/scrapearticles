@@ -28,13 +28,19 @@ var routes = require("./controllers/article_controller.js");
 
 app.use(routes);
 
-var MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost/scrapeArtcles`; 
+
+//`mongodb://localhost/scrapeArtcles`; 
 
 //  'mongodb://heroku_pzjpkkjh:gtpp4dlb8lc6fa9brlijd2e42h@ds345587.mlab.com:45587/heroku_pzjpkkjh'
 // `mongodb://katvengo:${process.env.DB_PASS}@ds345587.mlab.com:45587/heroku_pzjpkkjh`; 
 console.log(MONGODB_URI)
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(
+  process.env.MONGODB_URI || 
+   "mongodb://katvengo:Horses100@ds345587.mlab.com:45587/heroku_pzjpkkjh",
+ { 
+   useMongoClient: true
+  });
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('debug', true)

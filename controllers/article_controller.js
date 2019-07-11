@@ -217,9 +217,9 @@ router.post("/article/:id", function(req, res) {
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: {note: dbNote._id}}, { new: true });
     })
-    .then(function(dbArticle) {
+    .then(function(dbNote) {
       // If we were able to successfully update an Article, send it back to the client
-      res.render("favorite", {dbArticle: dbArticle})
+      res.render("favorite", {dbNote: dbNote})
       // res.json(dbArticle);
     })
     .catch(function(err) {

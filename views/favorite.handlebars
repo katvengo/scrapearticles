@@ -46,11 +46,17 @@
             </header>
             <section class="modal-card-body">
                 <div>
-                 {{#iter}}
-                  {{i}} {{note}}
-               {{/iter}}
-                    <span></span>
-                    <span></span>
+                 {{#if data.note}}
+                  {{#each data.note}}
+                <div class="card">
+                 <p id="nameComment">{{this.title}}</p>
+                 <p>{{this.body}}<p>
+              </div>
+              {{/each}}
+               {{else}}
+          <p>No Comments Yet.</p>
+                  {{/if}}
+                
                 
                     <!-- This needs to contain all notes for this article ... -->
     
