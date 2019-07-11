@@ -46,8 +46,10 @@ Favorite </button></span>
                         method: "GET",
                     }).then(function (result) {
                         console.log(result)
-            
                     })
+                    .catch(function (err) {
+          console.log(err);
+        });
                     
 
         var articlesNotScraped = true
@@ -77,6 +79,9 @@ Favorite </button></span>
                         console.log(result)
                     window.location.reload(false); 
                     })
+                    .catch(function (err) {
+          console.log(err);
+        });
     })
 </script>
  

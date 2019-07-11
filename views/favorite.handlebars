@@ -96,8 +96,10 @@
             method: "GET",
         }).then(function (result) {
             console.log(result)
-
         })
+        .catch(function (err) {
+          console.log(err);
+        });
 
         {
             {
@@ -120,6 +122,9 @@
                 console.log(result)
                 window.location.reload(true);
             })
+            .catch(function (err) {
+          console.log(err);
+        });
 
         })
 
@@ -139,10 +144,12 @@
                 .then(function (data) {
                     console.log(data)
                     console.log("data Note" + data.note[0])
-    
-                
                 })
+                .catch(function (err) {
+          console.log(err);
+        });
         })
+
       
 
 

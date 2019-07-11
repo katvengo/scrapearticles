@@ -9,6 +9,7 @@ var path = require("path")
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
 app.use(bodyParser.json());
 
 var db = require("../models");
