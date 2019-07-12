@@ -89,7 +89,7 @@ router.get("/articles", function (req, res) {
         .attr("href");
       result.link = `https://www.apnews.com${articleLink}`;
       result.summary = $(element)
-        .find("div.c0112")
+        .find("div.c0113")
         .children("p")
         .text();
       result.byline = $(element)

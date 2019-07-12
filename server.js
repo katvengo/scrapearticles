@@ -30,7 +30,6 @@ app.use(routes);
 
 
 //`mongodb://localhost/scrapeArtcles`; 
-
 //  'mongodb://heroku_pzjpkkjh:gtpp4dlb8lc6fa9brlijd2e42h@ds345587.mlab.com:45587/heroku_pzjpkkjh'
 // `mongodb://katvengo:${process.env.DB_PASS}@ds345587.mlab.com:45587/heroku_pzjpkkjh`; 
 // console.log(MONGODB_URI)
